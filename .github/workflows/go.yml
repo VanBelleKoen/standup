@@ -31,7 +31,7 @@ jobs:
         echo "Binary created in the dist/ directory"
 
     - name: Upload Binary as Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.0
       with:
         name: standup-binary
         path: dist/standup
