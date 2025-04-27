@@ -13,6 +13,32 @@ Standup is a command-line tool designed to help you manage your daily standup no
 
 Download the binary and add to path
 
+## Downloadable Binaries
+
+You can download pre-built binaries for macOS and Windows from the [Releases](https://github.com/VanBelleKoen/standup/releases) page.
+
+### Running the Binary
+
+#### macOS
+1. Download the `standup-macos` binary from the Releases page.
+2. Open a terminal and navigate to the directory where the binary is located.
+3. Make the binary executable:
+   ```bash
+   chmod +x standup-macos
+   ```
+4. Run the binary:
+   ```bash
+   ./standup-macos
+   ```
+
+#### Windows
+1. Download the `standup-windows.exe` binary from the Releases page.
+2. Open a Command Prompt or PowerShell and navigate to the directory where the binary is located.
+3. Run the binary:
+   ```cmd
+   standup-windows.exe
+   ```
+
 ## Manual Installation
 
 ### Prerequisites
