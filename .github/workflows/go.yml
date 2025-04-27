@@ -24,9 +24,6 @@ jobs:
     - name: Test
       run: go test ./...
 
-    - name: Build
-      run: go build -o standup ./src
-
     - name: Build for macOS
       run: |
         GOOS=darwin GOARCH=amd64 go build -o dist/standup-macos ./src
@@ -48,23 +45,6 @@ jobs:
           echo "Windows binary not found!";
           exit 1;
         fi
-
-    - name: Log Dist Directory Contents
-      run: |
-        echo "Contents of dist directory:";
-        ls -l dist
-
-    - name: Create Binary
-      run: |
-        mkdir -p dist
-        mv standup dist/standup
-        echo "Binary created in the dist/ directory"
-
-    - name: Upload Binary as Artifact
-      uses: actions/upload-artifact@v4.6.2
-      with:
-        name: standup-binary
-        path: dist/standup
 
     - name: Log macOS Binary Upload
       run: |
@@ -99,10 +79,16 @@ jobs:
       with:
         go-version: '1.23'
 
-    - name: Download Binary Artifact
+    - name: Download macOS Binary Artifact
       uses: actions/download-artifact@v4.3.0
       with:
-        name: standup-binary
+        name: standup-binary-macos
+        path: dist
+
+    - name: Download Windows Binary Artifact
+      uses: actions/download-artifact@v4.3.0
+      with:
+        name: standup-binary-windows
         path: dist
 
     - name: Create Release
@@ -111,19 +97,30 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}-${{ github.run_id }}
-        release_name: Release ${{ github.ref_name }}-${{ github.run_id }}
+        tag_name: ${{ github.ref_name }}-${{ github.run_number }}
+        release_name: Release ${{ github.ref_name }}-${{ github.run_number }}
         draft: false
         prerelease: false
 
-    - name: Upload Release Asset
+
+    - name: Upload macOS Release Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/standup
-        asset_name: standup
+        asset_path: dist/standup-macos
+        asset_name: standup-macos
+        asset_content_type: application/octet-stream
+
+    - name: Upload Windows Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/standup-windows.exe
+        asset_name: standup-windows.exe
         asset_content_type: application/octet-stream
 
 
