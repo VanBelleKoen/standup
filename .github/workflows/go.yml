@@ -27,6 +27,14 @@ jobs:
     - name: Build
       run: go build -o standup ./src
 
+    - name: Build for macOS
+      run: |
+        GOOS=darwin GOARCH=amd64 go build -o dist/standup-macos ./src
+
+    - name: Build for Windows
+      run: |
+        GOOS=windows GOARCH=amd64 go build -o dist/standup-windows.exe ./src
+
     - name: Create Binary
       run: |
         mkdir -p dist
@@ -38,6 +46,18 @@ jobs:
       with:
         name: standup-binary
         path: dist/standup
+
+    - name: Upload macOS Binary as Artifact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: standup-binary-macos
+        path: dist/standup-macos
+
+    - name: Upload Windows Binary as Artifact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: standup-binary-windows
+        path: dist/standup-windows.exe
 
   release:
     needs: build
