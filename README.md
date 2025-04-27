@@ -11,6 +11,10 @@ Standup is a command-line tool designed to help you manage your daily standup no
 
 ## Installation
 
+Download the binary and add to path
+
+## Manual Installation
+
 ### Prerequisites
 - **Go**: Ensure you have Go installed on your system. You can download it from [golang.org](https://golang.org/).
 
