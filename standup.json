@@ -1,5 +1,9 @@
 {
   "today": [],
-  "last_workday": [],
-  "notes": []
+  "last_workday": [
+    "loketContext - develop",
+    "loketContext - test_branch"
+  ],
+  "notes": [],
+  "last_workday_date": "28/04/2025"
 }

@@ -10,7 +10,7 @@ func TestRemoveEntry(t *testing.T) {
 		LastWorkday: []string{},
 		Notes:       []string{},
 	}
-	err := saveStandupData(initialData)
+	err := saveStandupData(&initialData)
 	if err != nil {
 		t.Fatalf("Failed to save initial data: %v", err)
 	}
@@ -31,7 +31,6 @@ func TestRemoveEntry(t *testing.T) {
 		}
 	}
 
-	// Test removing a non-existent entry
 	removeEntry("Non-existent Task")
 	data, err = loadStandupData()
 	if err != nil {
