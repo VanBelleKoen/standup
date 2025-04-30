@@ -11,7 +11,7 @@ func TestAddNote(t *testing.T) {
 		_ = os.Remove(dataFile)
 	}()
 
-	err := saveStandupData(StandupData{})
+	err := saveStandupData(&StandupData{})
 	if err != nil {
 		t.Fatalf("Failed to initialize test data file: %v", err)
 	}
