@@ -15,7 +15,7 @@ func TestShowStandup(t *testing.T) {
 		Today:       []string{"Task 1", "Task 2"},
 		LastWorkday: []string{"Task A", "Task B"},
 	}
-	err := saveStandupData(data)
+	err := saveStandupData(&data)
 	if err != nil {
 		t.Fatalf("Failed to save data: %v", err)
 	}
