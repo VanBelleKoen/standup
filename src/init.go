@@ -14,7 +14,7 @@ func initializeStandupData() {
 			LastWorkday     []string `json:"last_workday"`
 			Notes           []string `json:"notes"`
 		}{
-			LastWorkdayDate: time.Now().AddDate(0, 0, -1).Format("2006-01-02"),
+			LastWorkdayDate: time.Now().AddDate(0, 0, -1).Format("02/01/2006"),
 			Today:           []string{},
 			LastWorkday:     []string{},
 			Notes:           []string{},
@@ -49,7 +49,7 @@ func initializeStandupData() {
 	}
 
 	if data.LastWorkdayDate == "" {
-		data.LastWorkdayDate = time.Now().AddDate(0, 0, -1).Format("2006-01-02")
+		data.LastWorkdayDate = time.Now().AddDate(0, 0, -1).Format("02/01/2006")
 		file, err := os.Create("standup.json")
 		if err != nil {
 			panic(err)

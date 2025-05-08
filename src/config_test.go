@@ -8,13 +8,9 @@ import (
 )
 
 func TestLoadConfig_NoConfigFile(t *testing.T) {
-	usr, err := user.Current()
-	if err != nil {
-		t.Fatalf("Failed to get current user: %v", err)
-	}
+	usr, _ := user.Current()
 	configPath := filepath.Join(usr.HomeDir, ".standupconfig")
-
-	os.Remove(configPath)
+	os.Remove(configPath) // Ensure the config file does not exist
 
 	config, err := loadConfig()
 	if err != nil {
@@ -27,15 +23,11 @@ func TestLoadConfig_NoConfigFile(t *testing.T) {
 }
 
 func TestCreateDefaultConfig(t *testing.T) {
-	usr, err := user.Current()
-	if err != nil {
-		t.Fatalf("Failed to get current user: %v", err)
-	}
+	usr, _ := user.Current()
 	configPath := filepath.Join(usr.HomeDir, ".standupconfig")
+	os.Remove(configPath) // Ensure the config file does not exist
 
-	os.Remove(configPath)
-
-	err = createDefaultConfig()
+	err := createDefaultConfig()
 	if err != nil {
 		t.Fatalf("Failed to create default config: %v", err)
 	}
@@ -43,7 +35,7 @@ func TestCreateDefaultConfig(t *testing.T) {
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		t.Fatalf("Expected config file to be created, but it does not exist")
 	}
-	
+
 	config, err := loadConfig()
 	if err != nil {
 		t.Fatalf("Failed to load config: %v", err)
